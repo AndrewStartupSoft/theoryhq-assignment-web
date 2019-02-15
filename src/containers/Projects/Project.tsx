@@ -5,6 +5,11 @@ import { getProjectById } from 'src/api/projects';
 import ProjectModel from 'src/models/project.model';
 
 const styles = createStyles({
+    '@media (max-width: 800px)': {
+        gridWrapper: {
+            width: '100%',
+        },
+    },
     gridWrapper: {
         margin: '20px auto !important',
         maxWidth: '800px !important',
@@ -43,7 +48,7 @@ const Project = (props: { match: any, classes: any }) => {
                     <h1>{project.title}</h1>
                 </Paper>
             </Grid>
-            <Grid item={true} xs={12}>
+            <Grid item={true} sm={12}>
                 <Paper className={classes.paper}>
                     <p>{project.description}</p>
                 </Paper>

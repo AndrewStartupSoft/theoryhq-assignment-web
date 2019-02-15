@@ -5,6 +5,11 @@ import { getProjects } from 'src/api/projects';
 import Project from './Project';
 
 const styles = createStyles({
+    '@media (max-width: 800px)': {
+        gridWrapper: {
+            width: '100%',
+        },
+    },
     gridWrapper: {
         margin: '20px auto !important',
         maxWidth: '800px !important',
@@ -41,7 +46,7 @@ const Projects = (props: { classes: any; }): any => {
             {
                 projects.map((project: any, index: number) => {
                     return (
-                        <Grid item={true} xs={6} key={index}>
+                        <Grid item={true} sm={6} key={index}>
                             <Paper className={`${classes.paper} ${project.isCritical ? classes.paperRed : ''}`}>
                                 <h3>
                                     <Link to={`/project/${project.id}`}>{project.title}</Link>
