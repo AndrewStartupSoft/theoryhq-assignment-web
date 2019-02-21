@@ -1,4 +1,4 @@
-import { createStyles, Grid, Paper, withStyles } from '@material-ui/core';
+import { createStyles, Grid, Paper, withStyles, WithStyles } from '@material-ui/core';
 import * as React from "react";
 
 const styles = createStyles({
@@ -20,7 +20,9 @@ const styles = createStyles({
     }
 });
 
-const Home = (props: { classes: any; }) => {
+export interface IProps extends WithStyles<typeof styles> { }
+
+const Home = (props: IProps) => {
     const { classes } = props;
 
     return (

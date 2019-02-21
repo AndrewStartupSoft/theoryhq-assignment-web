@@ -1,7 +1,7 @@
-import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
+import { ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import { createStyles, withStyles } from '@material-ui/core/styles';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
@@ -15,9 +15,10 @@ const styles = createStyles({
     },
     '@media screen and (min-width: 600px)': {
         mobileView: {
-          display: 'none',
+            display: 'none',
         },
-    },   
+    },
+    desktopView: {},
     grey: {
         backgroundColor: '#858585',
     },
@@ -25,14 +26,17 @@ const styles = createStyles({
         color: '#fff',
         fontWeight: 'bold'
     },
-    toolbar: {        
+    mobileView: {},
+    toolbar: {
         justifyContent: 'flex-end',
         minHeight: '40px'
     },
 });
 
-const MenuBar = (props: { customClass: any, classes: any }) => {
-    const { customClass, classes } = props;
+export interface IProps extends WithStyles<typeof styles> { }
+
+const MenuBar = (props: IProps) => {
+    const { classes } = props;
 
     const [open, setOpen] = React.useState(false);
     const anchorEl = React.useRef(null);
@@ -41,7 +45,7 @@ const MenuBar = (props: { customClass: any, classes: any }) => {
         setOpen(!open);
     }
 
-    function handleClose(event: { target: any; }) {
+    function handleClose(event: React.MouseEvent<HTMLElement, MouseEvent>) {
         if (anchorEl.current.contains(event.target)) {
             return;
         }
@@ -50,7 +54,7 @@ const MenuBar = (props: { customClass: any, classes: any }) => {
     }
 
     return (
-        <AppBar className={customClass} position="static">
+        <AppBar position="static">
             <Toolbar className={`${classes.toolbar} ${classes.grey}`}>
                 <div className={classes.mobileView}>
                     <Button className={classes.link} buttonRef={anchorEl} aria-owns={open ? 'menu-list-grow' : undefined} aria-haspopup="true" onClick={handleToggle}>

@@ -1,8 +1,8 @@
-import { createStyles, Grid, Paper, withStyles } from '@material-ui/core';
+import { createStyles, Grid, Paper, withStyles, WithStyles } from '@material-ui/core';
 import * as React from "react";
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getProjects } from 'src/api/projects';
-import Project from './Project';
+import ProjectModel from 'src/models/project.model';
 
 const styles = createStyles({
     '@media (max-width: 800px)': {
@@ -26,12 +26,14 @@ const styles = createStyles({
     }
 });
 
-const Projects = (props: { classes: any; }): any => {
+export interface IProps extends WithStyles<typeof styles> { }
+
+const Projects = (props: IProps) => {
     const [projects, setProjects] = React.useState([]);
     const { classes } = props;
 
     React.useEffect(() => {
-        getProjects().then((proj: any) => {
+        getProjects().then((proj: ProjectModel[]) => {
             setProjects(proj);
         })
     }, [])
@@ -44,7 +46,7 @@ const Projects = (props: { classes: any; }): any => {
                 </Paper>
             </Grid>
             {
-                projects.map((project: any, index: number) => {
+                projects.map((project: ProjectModel, index: number) => {
                     return (
                         <Grid item={true} sm={6} key={index}>
                             <Paper className={`${classes.paper} ${project.isCritical ? classes.paperRed : ''}`}>

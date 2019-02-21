@@ -1,4 +1,4 @@
-import { createStyles, Grid, withStyles } from '@material-ui/core';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core';
 import * as React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navigation from './components/Navigation';
@@ -7,16 +7,14 @@ import Project from './containers/Projects/Project';
 import Projects from './containers/Projects/Projects';
 
 const styles = createStyles({
-  fixedNav: {
-    bottom: 0,
-    position: 'fixed'    
-  },
   rootContainer: {
     height: '100%'
   },
 });
 
-const Application = (props: { classes: any; }) => {
+export interface IProps extends WithStyles<typeof styles> { }
+
+const Application = (props: IProps) => {
   const { classes } = props;
 
   return (
@@ -26,7 +24,7 @@ const Application = (props: { classes: any; }) => {
         <Route exact={true} path="/" component={Home} />
         <Route path="/projects" component={Projects} />
         <Route path={`/project/:id`} component={Project} />
-        <Navigation customClass={classes.fixedNav} />
+        <Navigation />
       </div>
     </Router>
   )

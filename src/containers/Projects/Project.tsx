@@ -1,4 +1,4 @@
-import { createStyles, Grid, Paper, withStyles } from '@material-ui/core';
+import { createStyles, Grid, Paper, withStyles, WithStyles } from '@material-ui/core';
 import * as React from "react";
 import { Link, Route } from 'react-router-dom';
 import { getProjectById } from 'src/api/projects';
@@ -24,13 +24,15 @@ const styles = createStyles({
     }
 });
 
+export interface IProps extends WithStyles<typeof styles> { }
+
 const Project = (props: { match: any, classes: any }) => {
     const { match, classes } = props;
     const [project, setProject] = React.useState(new ProjectModel());
 
     React.useEffect(() => {
         getProjectById(match.params.id).then((proj: any) => {
-            const pm = new ProjectModel();
+            const pm = new ProjectModel(); 
             const retrievedData = proj.data;
 
             pm.id = retrievedData.id;
